@@ -5,13 +5,10 @@ public:
         int maxProfit = 0;        
 
         for (int i=0;i<prices.size();i++) {
-            if (prices[i] < minPrice) {
-                minPrice = prices[i];
-            }
+            minPrice=min(prices[i],minPrice);
 
-            else if (prices[i] - minPrice > maxProfit) {
-                maxProfit = prices[i] - minPrice;
-            }
+            int profit = prices[i]-minPrice;
+            maxProfit= max(profit,maxProfit);
         }
         return maxProfit;
     }
