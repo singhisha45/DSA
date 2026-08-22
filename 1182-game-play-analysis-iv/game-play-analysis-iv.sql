@@ -1,0 +1,21 @@
+# Write your MySQL query statement below
+WITH FirstLogin AS (
+    SELECT player_id, MIN(event_date) AS first_login
+    FROM Activity
+    GROUP BY player_id
+),
+ConsecutiveLogin AS (
+    SELECT a.player_id
+    FROM Activity a
+    JOIN FirstLogin fl
+    ON a.player_id = fl.player_id
+    AND DATEDIFF(a.event_date,fl.first_login)=1
+)
+SELECT
+    ROUND(
+        COUNT(DISTINCT cl.player_id) * 1.0 / COUNT(DISTINCT fl.player_id),
+        2
+    ) AS fraction
+FROM FirstLogin fl
+LEFT JOIN ConsecutiveLogin cl
+ON fl.player_id = cl.player_id;
