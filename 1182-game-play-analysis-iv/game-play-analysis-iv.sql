@@ -11,11 +11,7 @@ ConsecutiveLogin AS (
     ON a.player_id = fl.player_id
     AND DATEDIFF(a.event_date,fl.first_login)=1
 )
-SELECT
-    ROUND(
-        COUNT(DISTINCT cl.player_id) * 1.0 / COUNT(DISTINCT fl.player_id),
-        2
-    ) AS fraction
+SELECT ROUND(COUNT(DISTINCT cl.player_id) * 1.0 / COUNT(DISTINCT fl.player_id),2) AS fraction
 FROM FirstLogin fl
 LEFT JOIN ConsecutiveLogin cl
 ON fl.player_id = cl.player_id;
