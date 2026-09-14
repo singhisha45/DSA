@@ -1,6 +1,7 @@
 class Solution {
 public:
     int mirrorDistance(int n) {
+        //comment
         long long a=n;
         long long reverse=0;
         while(a>0){
